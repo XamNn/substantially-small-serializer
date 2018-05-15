@@ -9,14 +9,14 @@ using SSSerializer.Json;
 
 ### Data Structures (INodes)
 
-1. ValueNode
+1. ValueNode.
 A simple string value.
 ```cs
 var MyString = "hello";
 var myValueNode = (ValueNode)MyString;
 ```
 
-2. ObjectNode
+2. ObjectNode.
 A dictionary of string keys and INodes.
 Works like a Dictionary<string, INode>.
 ```
@@ -24,7 +24,7 @@ var myObjectNode = new ObjectNode();
 myObjectNode.Add("key", (ValueNode)"value");
 ```
 
-3. ArrayNode
+3. ArrayNode.
 A list of INodes.
 Works like a List\<INode>.
 ```cs
