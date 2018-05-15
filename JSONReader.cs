@@ -14,17 +14,6 @@ namespace SharpSerializer.Json
             return NextValue(true);
         }
 
-        [Serializable]
-        public class JSONParsingException : Exception
-        {
-            public JSONParsingException() { }
-            public JSONParsingException(string message) : base(message) { }
-            public JSONParsingException(string message, Exception inner) : base(message, inner) { }
-            protected JSONParsingException(
-              System.Runtime.Serialization.SerializationInfo info,
-              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-        }
-
         IEnumerator<Token> TokenStream;
 
         int line = 1, column = 1;
@@ -147,5 +136,16 @@ namespace SharpSerializer.Json
                 column++;
             }
         }
+    }
+    
+    [Serializable]
+    public class JSONParsingException : Exception
+    {
+        public JSONParsingException() { }
+        public JSONParsingException(string message) : base(message) { }
+        public JSONParsingException(string message, Exception inner) : base(message, inner) { }
+        protected JSONParsingException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }
