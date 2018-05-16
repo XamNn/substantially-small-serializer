@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharpSerializer.Json
+namespace SSSerializer.Json
 {
     public class JSONReader
     {
@@ -28,7 +28,7 @@ namespace SharpSerializer.Json
             {
                 if (TokenStream.Current.TokenType == TokenType.String)
                 {
-                    return (ValueNode)TokenStream.Current.Match;
+                    return (StringNode)TokenStream.Current.Match;
                 }
                 if (TokenStream.Current.TokenType == TokenType.ObjectStart)
                 {
@@ -38,8 +38,16 @@ namespace SharpSerializer.Json
                         if (TokenStream.MoveNext())
                         {
                             if (TokenStream.Current.TokenType == TokenType.ObjectEnd) return obj;
-                            var (key, node) = NextKeyNodePair(false);
-                            obj.Add(key, node);
+                            if ((!move || TokenStream.MoveNext()) && TokenStream.Current.TokenType == TokenType.String)
+                            {
+                                var key = TokenStream.Current.Match;
+                                if (TokenStream.MoveNext() && TokenStream.Current.TokenType == TokenType.Colon)
+                                {
+                                    obj.Add(key, NextValue(true));
+                                }
+                                else throw new JSONParsingException("Colon ':' expected at " + GetLocationString());
+                            }
+                            else throw new JSONParsingException("Key expected at " + GetLocationString());
                             if (TokenStream.MoveNext())
                             {
                                 if (TokenStream.Current.TokenType == TokenType.Comma) continue;
@@ -71,19 +79,6 @@ namespace SharpSerializer.Json
                 }
             }
             throw new JSONParsingException("Expected value, object '{', or array '[' at" + GetLocationString());
-        }
-        (string, INode) NextKeyNodePair(bool move)
-        {
-            if ((!move || TokenStream.MoveNext()) && TokenStream.Current.TokenType == TokenType.String)
-            {
-                var key = TokenStream.Current.Match;
-                if (TokenStream.MoveNext() && TokenStream.Current.TokenType == TokenType.Colon)
-                {
-                    return (key, NextValue(true));
-                }
-                throw new JSONParsingException("Colon ':' expected at " + GetLocationString());
-            }
-            throw new JSONParsingException("Key expected at " + GetLocationString());
         }
 
         enum TokenType

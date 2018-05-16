@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharpSerializer
+namespace SSSerializer
 {
     public interface INode
     {
     }
-    public class ValueNode : INode
+    public class StringNode : INode
     {
         public string Value { get; set; }
 
-        public static implicit operator ValueNode(string value)
+        public static implicit operator StringNode(string value)
         {
-            return new ValueNode { Value = value };
+            return new StringNode { Value = value };
         }
-        public static implicit operator string(ValueNode value)
+        public static implicit operator string(StringNode value)
         {
             return value.Value;
         }

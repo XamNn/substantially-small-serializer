@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharpSerializer.Json
+namespace SSSerializer.Json
 {
     public class JSONWriter
     {
@@ -32,7 +32,7 @@ namespace SharpSerializer.Json
         }
         void WriteNode(INode node)
         {
-            if (node is ValueNode val)
+            if (node is StringNode val)
             {
                 WriteString("\"");
                 WriteString(val);
