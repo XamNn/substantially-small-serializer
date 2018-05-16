@@ -9,7 +9,7 @@ using SSSerializer.Json;
 
 ### Data Structures (INodes)
 
-1. ValueNode.
+1. StringNode.
 A simple string value.
 ```cs
 var MyString = "hello";
