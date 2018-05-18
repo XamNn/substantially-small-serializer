@@ -8,7 +8,7 @@ namespace SSSerializer.Json
 {
     public class JSONReader
     {
-        public INode Read(string content)
+        public Node Read(string content)
         {
             TokenStream = StreamTokensFrom(content);
             return NextValue(true);
@@ -22,7 +22,7 @@ namespace SSSerializer.Json
             return line.ToString() + " : " + column.ToString();
         }
 
-        INode NextValue(bool move)
+        Node NextValue(bool move)
         {
             if (!move || TokenStream.MoveNext())
             {
@@ -38,12 +38,12 @@ namespace SSSerializer.Json
                         if (TokenStream.MoveNext())
                         {
                             if (TokenStream.Current.TokenType == TokenType.ObjectEnd) return obj;
-                            if ((!move || TokenStream.MoveNext()) && TokenStream.Current.TokenType == TokenType.String)
+                            if (TokenStream.Current.TokenType == TokenType.String)
                             {
                                 var key = TokenStream.Current.Match;
                                 if (TokenStream.MoveNext() && TokenStream.Current.TokenType == TokenType.Colon)
                                 {
-                                    obj.Add(key, NextValue(true));
+                                    obj.Items.Add(key, NextValue(true));
                                 }
                                 else throw new JSONParsingException("Colon ':' expected at " + GetLocationString());
                             }
@@ -66,7 +66,7 @@ namespace SSSerializer.Json
                         if (TokenStream.MoveNext())
                         {
                             if (TokenStream.Current.TokenType == TokenType.ArrayEnd) return arr;
-                            arr.Add(NextValue(false));
+                            arr.Items.Add(NextValue(false));
                             if (TokenStream.MoveNext())
                             {
                                 if (TokenStream.Current.TokenType == TokenType.Comma) continue;

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SSSerializer
 {
-    public interface INode
+    public class Node
     {
     }
-    public class StringNode : INode
+    public class StringNode : Node
     {
         public string Value { get; set; }
 
@@ -22,21 +22,38 @@ namespace SSSerializer
             return value.Value;
         }
     }
-    public class ObjectNode : Dictionary<string, INode>, INode
+    public class ObjectNode : Node
     {
-        public new INode this[string key]
+        public ObjectNode()
+        {
+            Items = new Dictionary<string, Node>();
+        }
+        public ObjectNode(Dictionary<string, Node> x)
+        {
+            Items = x;
+        }
+
+        public Dictionary<string, Node> Items { get; set; }
+        public Node this[string key]
         {
             get
             {
-                //we get rid of the usual exception and simply return null if key was not present
-                if (!TryGetValue(key, out var node)) return null;
-                return node;
-            }
-            set
-            {
-                base[key] = value;
+                if (Items.TryGetValue(key, out var v)) return v;
+                return null;
             }
         }
     }
-    public class ArrayNode : List<INode>, INode { }
+    public class ArrayNode : Node
+    {
+        public ArrayNode()
+        {
+            Items = new List<Node>();
+        }
+        public ArrayNode(List<Node> x)
+        {
+            Items = x;
+        }
+
+        public List<Node> Items { get; set; }
+    }
 }

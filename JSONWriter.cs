@@ -8,7 +8,7 @@ namespace SSSerializer.Json
 {
     public class JSONWriter
     {
-        public string Write(INode root, bool prettyPrint)
+        public string Write(Node root, bool prettyPrint)
         {
             this.prettyPrint = prettyPrint;
             WriteNode(root);
@@ -30,7 +30,7 @@ namespace SSSerializer.Json
             }
             builder.Append(s);
         }
-        void WriteNode(INode node)
+        void WriteNode(Node node)
         {
             if (node is StringNode val)
             {
@@ -40,7 +40,7 @@ namespace SSSerializer.Json
             }
             else if (node is ObjectNode obj)
             {
-                if (obj.Count == 0)
+                if (obj.Items.Count == 0)
                 {
                     WriteString("{}");
                     return;
@@ -49,7 +49,7 @@ namespace SSSerializer.Json
                 indent++;
                 nextline = true;
                 bool isnotfirst = false;
-                foreach (var x in obj)
+                foreach (var x in obj.Items)
                 {
                     if (isnotfirst)
                     {
@@ -70,7 +70,7 @@ namespace SSSerializer.Json
             }
             else if (node is ArrayNode arr)
             {
-                if (arr.Count == 0)
+                if (arr.Items.Count == 0)
                 {
                     WriteString("[]");
                     return;
@@ -79,7 +79,7 @@ namespace SSSerializer.Json
                 indent++;
                 nextline = true;
                 bool isnotfirst = false;
-                foreach (var x in arr)
+                foreach (var x in arr.Items)
                 {
                     if (isnotfirst)
                     {
