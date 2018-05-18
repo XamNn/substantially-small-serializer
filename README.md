@@ -21,7 +21,7 @@ A dictionary of string keys and Nodes.
 Works like a Dictionary<string, Node>.
 ```
 var myObjectNode = new ObjectNode();
-myObjectNode.Add("key", (ValueNode)"value");
+myObjectNode.Items.Add("key", (ValueNode)"value");
 ```
 
 3. ArrayNode.
@@ -29,8 +29,8 @@ A list of INodes.
 Works like a List\<Node>.
 ```cs
 var myArrayNode = new ArrayNode();
-myArrayNode.Add((ValueNode)"value");
-myArrayNode.Add(new ObjectNode {{ "key", (ValueNode)"value" }});
+myArrayNode.Items.Add((ValueNode)"value");
+myArrayNode.Items.Add(new ObjectNode {{ "key", (ValueNode)"value" }});
 ```
 
 ### Node to JSON
