@@ -7,7 +7,7 @@ using SSSerializer;
 using SSSerializer.Json;
 ```
 
-### Data Structures (INodes)
+### Data Structures (Nodes)
 
 1. StringNode.
 A simple string value.
@@ -17,29 +17,29 @@ var myValueNode = (ValueNode)MyString;
 ```
 
 2. ObjectNode.
-A dictionary of string keys and INodes.
-Works like a Dictionary<string, INode>.
+A dictionary of string keys and Nodes.
+Works like a Dictionary<string, Node>.
 ```
 var myObjectNode = new ObjectNode();
-myObjectNode.Add("key", (ValueNode)"value");
+myObjectNode.Items.Add("key", (ValueNode)"value");
 ```
 
 3. ArrayNode.
 A list of INodes.
-Works like a List\<INode>.
+Works like a List\<Node>.
 ```cs
 var myArrayNode = new ArrayNode();
-myArrayNode.Add((ValueNode)"value");
-myArrayNode.Add(new ObjectNode {{ "key", (ValueNode)"value" }});
+myArrayNode.Items.Add((ValueNode)"value");
+myArrayNode.Items.Add(new ObjectNode {{ "key", (ValueNode)"value" }});
 ```
 
-### INode to JSON
+### Node to JSON
 Serialize an INode into a string containing json:
 ```cs
-var myJson = new JSONWriter().Write(MyINode, prettyPrint: true);
+var myJson = new JSONWriter().Write(MyNode, prettyPrint: true);
 ```
 
-### JSON to INode
+### JSON to Node
 Deserialize a string containing json into an INode:
 ```cs
 var myINode = new JSONReader().Read(myJson);
