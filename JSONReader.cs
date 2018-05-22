@@ -28,7 +28,7 @@ namespace SSSerializer.Json
             {
                 if (TokenStream.Current.TokenType == TokenType.String)
                 {
-                    return (StringNode)TokenStream.Current.Match;
+                    return new StringNode { Value = TokenStream.Current.Match };
                 }
                 if (TokenStream.Current.TokenType == TokenType.ObjectStart)
                 {

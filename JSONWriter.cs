@@ -35,7 +35,7 @@ namespace SSSerializer.Json
             if (node is StringNode val)
             {
                 WriteString("\"");
-                WriteString(val);
+                WriteString(val.Value);
                 WriteString("\"");
             }
             else if (node is ObjectNode obj)
