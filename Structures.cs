@@ -15,11 +15,11 @@ namespace SSSerializer
 
         public static implicit operator StringNode(string value)
         {
-            return new StringNode { Value = value };
+            return new StringNode { Value = value.Replace("\"", "\\\"") };
         }
         public static implicit operator string(StringNode value)
         {
-            return value.Value;
+            return value.Value.Replace("\\\"", "\"");
         }
     }
     public class ObjectNode : Node
