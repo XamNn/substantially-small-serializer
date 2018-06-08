@@ -18,7 +18,6 @@ var myValueNode = (ValueNode)MyString;
 
 2. ObjectNode.
 A dictionary of string keys and Nodes.
-Works like a Dictionary<string, Node>.
 ```
 var myObjectNode = new ObjectNode();
 myObjectNode.Items.Add("key", (ValueNode)"value");
@@ -26,7 +25,6 @@ myObjectNode.Items.Add("key", (ValueNode)"value");
 
 3. ArrayNode.
 A list of INodes.
-Works like a List\<Node>.
 ```cs
 var myArrayNode = new ArrayNode();
 myArrayNode.Items.Add((ValueNode)"value");
